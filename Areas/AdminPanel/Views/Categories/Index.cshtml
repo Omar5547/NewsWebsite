@@ -1,0 +1,52 @@
+﻿@model IEnumerable<FirstCoreApp.Models.Category>
+
+<div class="container">
+    <p>
+        <a asp-area="AdminPanel" asp-action="Create" class="btn btn-success">Create New</a>
+    </p>
+    <table class="table table-borderless table-striped table-earning">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th style="width:35%">
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        <a asp-area="AdminPanel" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
+                        <a asp-area="AdminPanel" asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark">Details</a> |
+                        <a asp-area="AdminPanel" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}

@@ -1,0 +1,41 @@
+﻿@model List<ContactUs>
+@using Microsoft.AspNetCore.Mvc
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<section id="testimonials" class="testimonials">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>آراء المستخدمين
+                @HttpContextAccessor.HttpContext.Session.GetString("userEmail");
+
+            </h2>
+        </div>
+        <center>
+       
+                @foreach (var item in Model)
+                {
+                    
+              
+                <div class="swiper-slide col-4">
+                   
+                    <div class="testimonial-item">
+                        <p style="font-size:30px">@item.Subject</p>
+                        <p>
+                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                           
+                            @item.Message <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                        </p>
+                        <img src="~/assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                        <h3>@item.Name</h3>
+                        <h4>@item.Email</h4>
+                    </div>
+                </div><!-- End testimonial item -->
+                <hr />
+                }
+
+            
+        </center>
+        
+  
+    </div>
+</section>

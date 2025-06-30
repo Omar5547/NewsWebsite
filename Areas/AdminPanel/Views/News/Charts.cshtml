@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Charts";
+}
+
+<h2>News Charts</h2>
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "/AdminPanel/News/getAllNews",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+
+                    const labels = response.map(item => item.Title);
+                    const data = response.map(item => new Date(item.Date).getFullYear());
+
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Years of News',
+                                data: data,
+                                borderWidth: 1,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                },
+                error: function (response) {
+                    console.log(response);
+                    alert("Error loading chart data");
+                }
+            });
+        });
+    </script>
+}
